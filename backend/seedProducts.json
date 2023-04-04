@@ -1,0 +1,74 @@
+[
+    {
+      "name": "Nike Slim shirt",
+      "slug":"nike-slim-shirt",
+      "category": "Shirts",
+      "image": "/images/p1.jpg",
+      "price": 120,
+      "countInStock": 0,
+      "brand": "Nike",
+      "rating": 4.5,
+      "numReviews": 10,
+      "description":"a high quality nike shirt"
+    },
+    {
+        "name": "Adidas Hit Shirt",
+        "slug":"adidas-hit-shirt",
+        "category": "Shirts",
+        "image": "/images/img10.jpg",
+        "price": 250,
+        "countInStock": 20,
+        "brand": "Adidas",
+        "rating": 4.0,
+        "numReviews": 10,
+        "description":"a high quality adidas shirt"
+      },
+      {
+        "name": "Nike Kit Pants",
+        "slug":"nike-kit-pants",
+        "category": "Pants",
+        "image": "/images/p3.jpg",
+        "price": 25,
+        "countInStock": 15,
+        "brand": "Nike",
+        "rating": 4.5,
+        "numReviews": 14,
+        "description":"a high quality nike pants"
+      },
+      {
+        "name": "Adidas Fit Pants",
+        "slug":"adidas-fit-pants",
+        "category": "Pants",
+        "image": "/images/p4.jpg",
+        "price": 65,
+        "countInStock": 5,
+        "brand": "Adidas",
+        "rating": 4.5,
+        "numReviews": 10,
+        "description":"a high quality adidas pant"
+      },
+      {
+        "name": "Adidas Sport Shirt",
+        "slug": "adidas-sport-shirt",
+        "category": "Shirts",
+        "image": "/images/img5.jpg",
+        "price": 80,
+        "countInStock": 20,
+        "brand": "Adidas",
+        "rating": 4.5,
+        "numReviews": 10,
+        "description": "a high quality adidas shirt"
+      },
+      {
+        "name": "Adidas Extra Shirt",
+        "slug": "adidas-extra-shirt",
+        "category": "Shirts",
+        "image": "/images/img6.jpg",
+        "price": 80,
+        "countInStock": 20,
+        "brand": "Adidas",
+        "rating": 4.5,
+        "numReviews": 10,
+        "description": "a high quality adidas shirt"
+      }
+  ]
