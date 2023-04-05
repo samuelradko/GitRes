@@ -6,7 +6,7 @@ const seedRouter = express.Router();
 
 seedRouter.get('/', async (req, res) => {
     // await User.remove({});
-    // const createdUsers = await User.insertMany(data.users);
-    // res.send({ createdUsers });
+    const createdUsers = await User.insertMany(data.users);
+    res.send({ createdUsers });
 });
 export default seedRouter;
