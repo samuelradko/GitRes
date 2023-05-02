@@ -21,7 +21,7 @@ import PlaceOrderScreen from "./screen/PlaceOrderScreen";
 import OrderScreen from "./screen/OrderScreen";
 import OrderHistoryScreen from "./screen/OrderHistoryScreen";
 import ProfileScreen from "./screen/ProfileScreen";
-import SearchBox from "./screen/searchBox";
+import SearchBox from "./screen/SearchBox";
 import Button from 'react-bootstrap/Button';
 import axios from "axios";
 import getError from "./utils";
@@ -65,28 +65,8 @@ function App() {
         ? 'd-flex flex-column site-container active-cont'
         : 'd-flex flex column site-container'}
       >
-        <ToastContainer position="bottom-center" limit={1} />
-        <header />
-        <div
-          className={
-            sidebarIsOpen
-              ? 'active-nav side-navbar d-flex justify-content-between flex-wrap flex-column'
-              : 'side-navbar d-flex justify-content-between flex-wrap flex-column'
-          }
-        >
-          <Nav className="flex-column text-white w-100 p-1">
-            <Nav.Item>
-              <strong>Categories</strong>
-            </Nav.Item>
-            {categories.map((category) => (
-              <Nav.Item key={category}>
-                <Link
-                  to={`/search?category=${category}`}
-                  onClick={() => setSidebarIsOpen(false)}>{category}</Link>
-              </Nav.Item>
-            ))}
-          </Nav>
-        </div>
+        <ToastContainer position="top-center" limit={1}> </ToastContainer>
+        <header>
         <Navbar bg="dark" variant="dark" expand="lg">
           <Container>
             <Button variant="dark" onClick={() => setSidebarIsOpen(!sidebarIsOpen)} >
@@ -100,14 +80,14 @@ function App() {
               <SearchBox />
               <Nav className="me-auto w-100 justify-content-end">
                 {userInfo?.isAdmin === false || !userInfo ? (
-                <Link to="/cart" className="nav-link">
-                  Cart
-                  {cart.cartItems.length > 0 && (
-                    <Badge pill="danger">
-                      {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
-                    </Badge>
-                  )}
-                </Link>
+                  <Link to="/cart" className="nav-link">
+                    Cart
+                    {cart.cartItems.length > 0 && (
+                      <Badge pill="danger">
+                        {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
+                      </Badge>
+                    )}
+                  </Link>
                 ) : userInfo?.isAdmin === true && (
                   <span></span>
                 )}
@@ -159,10 +139,29 @@ function App() {
                 )}
               </Nav>
             </Navbar.Collapse>
-
-
           </Container>
         </Navbar>
+        </header>
+        <div
+          className={
+            sidebarIsOpen
+              ? 'active-nav side-navbar d-flex justify-content-between flex-wrap flex-column'
+              : 'side-navbar d-flex justify-content-between flex-wrap flex-column'
+          }
+        >
+          <Nav className="flex-column text-white w-100 p-2">
+            <Nav.Item>
+              <strong>Categories</strong>
+            </Nav.Item>
+            {categories.map((category) => (
+              <Nav.Item key={category}>
+                <Link
+                  to={`/search?category=${category}`}
+                  onClick={() => setSidebarIsOpen(false)}>{category}</Link>
+              </Nav.Item>
+            ))}
+          </Nav>
+        </div>
         <main>
           <Container className="mt-3">
             <Routes>
@@ -174,7 +173,7 @@ function App() {
               <Route path="/payment" element={<PaymentMethodScreen />} />
               <Route path="/placeorder" element={<PlaceOrderScreen />} />
               <Route path="/order/:id" element={<ProtectedRoute> <OrderScreen /> </ProtectedRoute>} />
-              <Route path="/orderhistory" element={<ProtectedRoute> <OrderHistoryScreen /> </ProtectedRoute>} />
+              <Route path="/orderhistory" element={<OrderHistoryScreen />} />
               <Route path="/profile" element={<ProtectedRoute> <ProfileScreen /> </ProtectedRoute>} />
               <Route path="/search" element={<SearchBox />} />
               <Route path="/" element={<HomeScreen />}></Route>

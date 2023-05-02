@@ -1,12 +1,12 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { Store } from '../Store'
-import { useNavigate } from 'react-router-dom';
-import  Form  from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/esm/Button';
-import { Helmet } from 'react-helmet-async';
-import CheckoutSteps from '../components/CheckoutSteps';
+import React, { useContext, useEffect, useState } from "react";
+import { Store } from "../Store";
+import { useNavigate } from "react-router-dom";
+import Form from "react-bootstrap/Form";
+import CheckoutSteps from "../components/CheckoutSteps";
+import { Helmet } from "react-helmet-async";
+import Button from "react-bootstrap/Button";
 
-function PaymentMethodScreen() {
+const PaymentMethodScreen = () => {
     const navigate = useNavigate();
     const { state, dispatch: ctxDispatch } = useContext(Store);
     const {
@@ -14,22 +14,21 @@ function PaymentMethodScreen() {
     } = state;
 
     const [paymentMethodName, setPaymentMethod] = useState(
-        paymentMethod || 'Paypal'
+        paymentMethod || "PayPal"
     );
 
     useEffect(() => {
         if (!shippingAddress.address) {
-            navigate('/shipping');
+            navigate("/shipping");
         }
-    }, [shippingAddress, navigate])
+    }, [shippingAddress, navigate]);
 
     const submitHandler = (e) => {
-        e.preventDefualt();
-        ctxDispatch({ type: 'SAVE_PAYMENT_METHOD', payload: paymentMethodName })
+        e.preventDefault();
+        ctxDispatch({ type: "SAVE_PAYMENT_METHOD", payload: paymentMethodName });
+        localStorage.setItem("paymentMethod", JSON.stringify(paymentMethodName));
+        navigate("/placeorder");
     };
-    localStorage.setItem('paymentMethod', paymentMethodName);
-    navigate('/placeorder');
-
 
     return (
         <div>
@@ -57,5 +56,7 @@ function PaymentMethodScreen() {
             </div>
         </div>
     );
+
 };
-export default PaymentMethodScreen
+
+export default PaymentMethodScreen;
