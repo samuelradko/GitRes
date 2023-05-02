@@ -115,3 +115,6 @@ main {
   box-shadow: none;
 }
 
+.product-row {
+  margin-top: -320px;
+}

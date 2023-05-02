@@ -25,6 +25,7 @@ import SearchBox from "./screen/searchBox";
 import Button from 'react-bootstrap/Button';
 import axios from "axios";
 import getError from "./utils";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
 
@@ -98,6 +99,7 @@ function App() {
             <Navbar.Collapse id="basic-navbar-nav">
               <SearchBox />
               <Nav className="me-auto w-100 justify-content-end">
+                {userInfo?.isAdmin === false || !userInfo ? (
                 <Link to="/cart" className="nav-link">
                   Cart
                   {cart.cartItems.length > 0 && (
@@ -106,7 +108,10 @@ function App() {
                     </Badge>
                   )}
                 </Link>
-                {userInfo ? (
+                ) : userInfo?.isAdmin === true && (
+                  <span></span>
+                )}
+                {userInfo?.isAdmin === false ? (
                   <NavDropdown title={userInfo?.username} id="basic-nav-dropdown">
                     <LinkContainer to="/profile">
                       <NavDropdown.Item>User Profile</NavDropdown.Item>
@@ -123,14 +128,39 @@ function App() {
                       Sign Out
                     </Link>
                   </NavDropdown>
-                ) : (
+                ) : !userInfo && (
                   <Link className="nav-link" to="/signin">
-                    Sign-In
+                    Sign In
                   </Link>
-                )
-                }
+                )}
+                {userInfo?.isAdmin && (
+                  <NavDropdown title="Admin" id="admin-nav-dropdown">
+                    <LinkContainer to="/admin/products">
+                      <NavDropdown.Item>Add/Edit Products</NavDropdown.Item>
+                    </LinkContainer>
+                    <LinkContainer to="/admin/orders">
+                      <NavDropdown.Item>View/Edit Orders</NavDropdown.Item>
+                    </LinkContainer>
+                    <LinkContainer to="/admin/users">
+                      <NavDropdown.Item>View/Edit Users</NavDropdown.Item>
+                    </LinkContainer>
+                    <NavDropdown.Divider />
+                    <LinkContainer to="/profile">
+                      <NavDropdown.Item>Admin Profile</NavDropdown.Item>
+                    </LinkContainer>
+                    <Link
+                      className="dropdown-item"
+                      to="#signout"
+                      onClick={signoutHandler}
+                    >
+                      Sign Out
+                    </Link>
+                  </NavDropdown>
+                )}
               </Nav>
             </Navbar.Collapse>
+
+
           </Container>
         </Navbar>
         <main>
@@ -143,9 +173,10 @@ function App() {
               <Route path="/signup" element={<SignupScreen />} />
               <Route path="/payment" element={<PaymentMethodScreen />} />
               <Route path="/placeorder" element={<PlaceOrderScreen />} />
-              <Route path="/order/:id" element={<OrderScreen />} />
-              <Route path="/orderhistory" element={<OrderHistoryScreen />} />
-              <Route path="/profile" element={<ProfileScreen />} />
+              <Route path="/order/:id" element={<ProtectedRoute> <OrderScreen /> </ProtectedRoute>} />
+              <Route path="/orderhistory" element={<ProtectedRoute> <OrderHistoryScreen /> </ProtectedRoute>} />
+              <Route path="/profile" element={<ProtectedRoute> <ProfileScreen /> </ProtectedRoute>} />
+              <Route path="/search" element={<SearchBox />} />
               <Route path="/" element={<HomeScreen />}></Route>
             </Routes>
           </Container>
