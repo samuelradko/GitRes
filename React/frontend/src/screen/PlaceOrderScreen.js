@@ -9,12 +9,23 @@ import Button from 'react-bootstrap/Button';
 import CheckoutSteps from '../components/CheckoutSteps';
 import { Helmet } from 'react-helmet-async';
 import axios from 'axios';
-import { getError } from '../util.js';
+import { getError } from '../utils';
 import { toast } from 'react-toastify';
 import LoadingBox from '../components/LoadingBox';
 
-export default function PlaceOrderScreen() {
-
+const reducer = (state, action) => {
+    switch (action.type) {
+        case 'CREATE_REQUEST':
+            return { ...state, loading: true };
+        case 'CREATE_SUCCESS':
+            return { ...state, loading: false };
+        case 'CREATE_FAIL':
+            return { ...state, loading: false };
+        default:
+            return state;
+    }
+};
+const PlaceOrderScreen = () => {
     const navigate = useNavigate();
     const { state, dispatch: ctxDispatch } = useContext(Store);
     const { cart, userInfo } = state;
@@ -28,18 +39,7 @@ export default function PlaceOrderScreen() {
     cart.taxPrice = roundTotal(0.15 * cart.itemsPrice);
     cart.totalPrice = cart.itemsPrice + cart.shippingPrice + cart.taxPrice;
 
-    const reducer = (state, action) => {
-        switch (action.type) {
-            case 'CREATE_REQUEST':
-                return { ...state, loading: true };
-            case 'CREATE_SUCCESS':
-                return { ...state, loading: false };
-            case 'CREATE_FAIL':
-                return { ...state, loading: false };
-            default:
-                return state;
-        }
-    };
+
 
     const [{ loading }, dispatch] = useReducer(reducer, {
         loading: false,
@@ -194,3 +194,6 @@ export default function PlaceOrderScreen() {
         </div>
     );
 }
+
+
+export default PlaceOrderScreen

@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Store } from '../Store'
-import { Form, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import  Form  from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/esm/Button';
 import { Helmet } from 'react-helmet-async';
 import CheckoutSteps from '../components/CheckoutSteps';
@@ -9,7 +10,7 @@ function PaymentMethodScreen() {
     const navigate = useNavigate();
     const { state, dispatch: ctxDispatch } = useContext(Store);
     const {
-        cart: { shippingAdress, paymentMethod },
+        cart: { shippingAddress, paymentMethod },
     } = state;
 
     const [paymentMethodName, setPaymentMethod] = useState(
@@ -17,10 +18,10 @@ function PaymentMethodScreen() {
     );
 
     useEffect(() => {
-        if (!shippingAdress.adress) {
+        if (!shippingAddress.address) {
             navigate('/shipping');
         }
-    }, [shippingAdress, navigate])
+    }, [shippingAddress, navigate])
 
     const submitHandler = (e) => {
         e.preventDefualt();
@@ -56,5 +57,5 @@ function PaymentMethodScreen() {
             </div>
         </div>
     );
-    };
-    export default PaymentMethodScreen
+};
+export default PaymentMethodScreen
