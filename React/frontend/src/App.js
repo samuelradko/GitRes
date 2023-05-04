@@ -26,6 +26,7 @@ import Button from 'react-bootstrap/Button';
 import axios from "axios";
 import getError from "./utils";
 import ProtectedRoute from "./components/ProtectedRoute";
+import SearchScreen from "./screen/SearchScreen";
 
 function App() {
 
@@ -65,82 +66,84 @@ function App() {
         ? 'd-flex flex-column site-container active-cont'
         : 'd-flex flex column site-container'}
       >
-        <ToastContainer position="top-center" limit={1}> </ToastContainer>
+        <ToastContainer position="top-center" limit={1} />
         <header>
-        <Navbar bg="dark" variant="dark" expand="lg">
-          <Container>
-            <Button variant="dark" onClick={() => setSidebarIsOpen(!sidebarIsOpen)} >
-              <i className="fas fa-bars"></i>
-            </Button>&nbsp;
-            <LinkContainer to="/">
-              <Navbar.Brand> Webstore</Navbar.Brand>
-            </LinkContainer>
-            <Navbar.Toggle aria-controls="basic-navbar-nav" />
-            <Navbar.Collapse id="basic-navbar-nav">
-              <SearchBox />
-              <Nav className="me-auto w-100 justify-content-end">
-                {userInfo?.isAdmin === false || !userInfo ? (
-                  <Link to="/cart" className="nav-link">
-                    Cart
-                    {cart.cartItems.length > 0 && (
-                      <Badge pill="danger">
-                        {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
-                      </Badge>
-                    )}
-                  </Link>
-                ) : userInfo?.isAdmin === true && (
-                  <span></span>
-                )}
-                {userInfo?.isAdmin === false ? (
-                  <NavDropdown title={userInfo?.username} id="basic-nav-dropdown">
-                    <LinkContainer to="/profile">
-                      <NavDropdown.Item>User Profile</NavDropdown.Item>
-                    </LinkContainer>
-                    <LinkContainer to="/orderhistory">
-                      <NavDropdown.Item>Order History</NavDropdown.Item>
-                    </LinkContainer>
-                    <NavDropdown.Divider />
-                    <Link
-                      className="dropdown-item"
-                      to="#signout"
-                      onClick={signoutHandler}
-                    >
-                      Sign Out
+          <Navbar bg="dark" variant="dark" expand="lg">
+            <Container>
+              <Button variant="dark" onClick={() => setSidebarIsOpen(!sidebarIsOpen)} >
+                <i className="fas fa-bars"></i>
+              </Button>&nbsp;
+              <LinkContainer to="/">
+                <Navbar.Brand> Webstore</Navbar.Brand>
+              </LinkContainer>
+              <Navbar.Toggle aria-controls="basic-navbar-nav" />
+              <Navbar.Collapse id="basic-navbar-nav">
+                <SearchBox />
+                <Nav className="me-auto w-100 justify-content-end">
+                  {userInfo?.isAdmin === false || !userInfo ? (
+                    <Link to="/cart" className="nav-link">
+                      Cart
+                      {cart.cartItems.length > 0 && (
+                        <Badge pill="danger">
+                          {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
+                        </Badge>
+                      )}
                     </Link>
-                  </NavDropdown>
-                ) : !userInfo && (
-                  <Link className="nav-link" to="/signin">
-                    Sign In
-                  </Link>
-                )}
-                {userInfo?.isAdmin && (
-                  <NavDropdown title="Admin" id="admin-nav-dropdown">
-                    <LinkContainer to="/admin/products">
-                      <NavDropdown.Item>Add/Edit Products</NavDropdown.Item>
-                    </LinkContainer>
-                    <LinkContainer to="/admin/orders">
-                      <NavDropdown.Item>View/Edit Orders</NavDropdown.Item>
-                    </LinkContainer>
-                    <LinkContainer to="/admin/users">
-                      <NavDropdown.Item>View/Edit Users</NavDropdown.Item>
-                    </LinkContainer>
-                    <NavDropdown.Divider />
-                    <LinkContainer to="/profile">
-                      <NavDropdown.Item>Admin Profile</NavDropdown.Item>
-                    </LinkContainer>
-                    <Link
-                      className="dropdown-item"
-                      to="#signout"
-                      onClick={signoutHandler}
-                    >
-                      Sign Out
+                  ) : userInfo?.isAdmin === true && (
+                    <span></span>
+                  )}
+                  {userInfo?.isAdmin === false ? (
+                    <NavDropdown
+                      title={userInfo?.username}
+                      id="basic-nav-dropdown">
+                      <LinkContainer to="/profile">
+                        <NavDropdown.Item>User Profile</NavDropdown.Item>
+                      </LinkContainer>
+                      <LinkContainer to="/orderhistory">
+                        <NavDropdown.Item>Order History</NavDropdown.Item>
+                      </LinkContainer>
+                      <NavDropdown.Divider />
+                      <Link
+                        className="dropdown-item"
+                        to="#signout"
+                        onClick={signoutHandler}
+                      >
+                        Sign Out
+                      </Link>
+                    </NavDropdown>
+                  ) : !userInfo && (
+                    <Link className="nav-link" to="/signin">
+                      Sign In
                     </Link>
-                  </NavDropdown>
-                )}
-              </Nav>
-            </Navbar.Collapse>
-          </Container>
-        </Navbar>
+                  )}
+                  {userInfo?.isAdmin && (
+                    <NavDropdown title="Admin" id="admin-nav-dropdown">
+                      <LinkContainer to="/admin/products">
+                        <NavDropdown.Item>Add/Edit Products</NavDropdown.Item>
+                      </LinkContainer>
+                      <LinkContainer to="/admin/orders">
+                        <NavDropdown.Item>View/Edit Orders</NavDropdown.Item>
+                      </LinkContainer>
+                      <LinkContainer to="/admin/users">
+                        <NavDropdown.Item>View/Edit Users</NavDropdown.Item>
+                      </LinkContainer>
+                      <NavDropdown.Divider />
+                      <LinkContainer to="/profile">
+                        <NavDropdown.Item>Admin Profile</NavDropdown.Item>
+                      </LinkContainer>
+                      <Link
+                        className="dropdown-item"
+                        to="#signout"
+                        onClick={signoutHandler}
+                      >
+                        Sign Out
+                      </Link>
+                    </NavDropdown>
+                  )}
+                </Nav>
+              </Navbar.Collapse>
+            </Container>
+          </Navbar>
         </header>
         <div
           className={
@@ -175,7 +178,7 @@ function App() {
               <Route path="/order/:id" element={<ProtectedRoute> <OrderScreen /> </ProtectedRoute>} />
               <Route path="/orderhistory" element={<OrderHistoryScreen />} />
               <Route path="/profile" element={<ProtectedRoute> <ProfileScreen /> </ProtectedRoute>} />
-              <Route path="/search" element={<SearchBox />} />
+              <Route path="/search" element={<SearchScreen />} />
               <Route path="/" element={<HomeScreen />}></Route>
             </Routes>
           </Container>
