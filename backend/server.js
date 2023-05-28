@@ -6,6 +6,7 @@ import productRouter from './routes/productRoutes.js';
 import seedRouter from './routes/seedRoutes.js';
 import userRouter from './routes/userRoute.js';
 import orderRouter from './routes/orderRoutes.js';
+import path from 'path';
 
 dotenv.config();
 
@@ -36,8 +37,14 @@ app.use('/api/seed', seedRouter)
 app.use('/api/users', userRouter)
 app.use('/api/orders', orderRouter)
 
+const __dirname = path.resolve();
+app.use(express.static(path.join(__dirname, '../React/frontend/build')));
+app.get('*', (req, res) =>
+    res.sendFile(path.join(__dirname, '../React/frontend/build/index.html'))
+);
+
 app.use((err, req, res, next) => {
-    res.status(500).send({message: err.message})
+    res.status(500).send({ message: err.message })
 })
 
 const port = process.env.PORT || 5000;

@@ -1,0 +1,14 @@
+{
+  "name": "gitres",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "build": "cd backend && npm install  && cd ../React/frontend && npm install && npm run build",
+    "start": "cd React/frontend && npm run build && cd ../backend && node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
