@@ -21,12 +21,12 @@ import PlaceOrderScreen from "./screen/PlaceOrderScreen";
 import OrderScreen from "./screen/OrderScreen";
 import OrderHistoryScreen from "./screen/OrderHistoryScreen";
 import ProfileScreen from "./screen/ProfileScreen";
-// import SearchBox from "./screen/SearchBox";
 import Button from 'react-bootstrap/Button';
 import axios from "axios";
 import getError from "./utils";
 import ProtectedRoute from "./components/ProtectedRoute";
 import SearchScreen from "./screen/SearchScreen";
+import SearchBox from "./components/SearchBox";
 
 function App() {
 
@@ -62,29 +62,36 @@ function App() {
 
   return (
     <BrowserRouter>
-      <div className={sidebarIsOpen
-        ? 'd-flex flex-column site-container active-cont'
-        : 'd-flex flex column site-container'}
+      <div
+        className={
+          sidebarIsOpen
+            ? "d-flex flex-column site-container active-cont"
+            : "d-flex flex-column site-container"
+        }
       >
         <ToastContainer position="top-center" limit={1} />
         <header>
           <Navbar bg="dark" variant="dark" expand="lg">
             <Container>
-              <Button variant="dark" onClick={() => setSidebarIsOpen(!sidebarIsOpen)} >
+              <Button
+                variant="dark"
+                onClick={() => setSidebarIsOpen(!sidebarIsOpen)}
+              >
                 <i className="fas fa-bars"></i>
-              </Button>&nbsp;
+              </Button>
+              &nbsp;
               <LinkContainer to="/">
-                <Navbar.Brand> Webstore</Navbar.Brand>
+                <Navbar.Brand> webstore</Navbar.Brand>
               </LinkContainer>
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse id="basic-navbar-nav">
-                {/* <SearchBox /> */}
-                <Nav className="me-auto w-100 justify-content-end">
+                <SearchBox />
+                <Nav className="me-auto  w-100  justify-content-end">
                   {userInfo?.isAdmin === false || !userInfo ? (
                     <Link to="/cart" className="nav-link">
                       Cart
                       {cart.cartItems.length > 0 && (
-                        <Badge pill="danger">
+                        <Badge pill bg="danger">
                           {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
                         </Badge>
                       )}
@@ -95,7 +102,8 @@ function App() {
                   {userInfo?.isAdmin === false ? (
                     <NavDropdown
                       title={userInfo?.username}
-                      id="basic-nav-dropdown">
+                      id="basic-nav-dropdown"
+                    >
                       <LinkContainer to="/profile">
                         <NavDropdown.Item>User Profile</NavDropdown.Item>
                       </LinkContainer>
@@ -111,7 +119,7 @@ function App() {
                         Sign Out
                       </Link>
                     </NavDropdown>
-                  ) : !userInfo && (
+                   ) : !userInfo && (
                     <Link className="nav-link" to="/signin">
                       Sign In
                     </Link>
