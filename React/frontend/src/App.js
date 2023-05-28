@@ -21,7 +21,7 @@ import PlaceOrderScreen from "./screen/PlaceOrderScreen";
 import OrderScreen from "./screen/OrderScreen";
 import OrderHistoryScreen from "./screen/OrderHistoryScreen";
 import ProfileScreen from "./screen/ProfileScreen";
-import SearchBox from "./screen/SearchBox";
+// import SearchBox from "./screen/SearchBox";
 import Button from 'react-bootstrap/Button';
 import axios from "axios";
 import getError from "./utils";
@@ -78,7 +78,7 @@ function App() {
               </LinkContainer>
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse id="basic-navbar-nav">
-                <SearchBox />
+                {/* <SearchBox /> */}
                 <Nav className="me-auto w-100 justify-content-end">
                   {userInfo?.isAdmin === false || !userInfo ? (
                     <Link to="/cart" className="nav-link">
